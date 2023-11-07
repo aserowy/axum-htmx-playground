@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+        <script src="https://unpkg.com/htmx.org@1.9.8"
+                crossorigin="anonymous"></script>
+        <title>
+            {% block title %}Testing - {{ title }}{% endblock %}
+        </title>
+    </head>
+    <body>
+        <section class="hero is-primary">
+            <div class="hero-body">
+                {% block hero %}<p>Platzhalter...</p>{% endblock %}
+            </div>
+        </section>
+        <section class="section">
+            <div id="content" class="container">
+                {% block content %}<p>Platzhalter...</p>{% endblock %}
+            </div>
+        </section>
+        <footer class="footer has-background-grey-lighter">
+            <div class="content has-text-centered">
+                <p>Footer from bulma.io :P</p>
+            </div>
+        </footer>
+    </body>
+</html>
