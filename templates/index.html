@@ -5,18 +5,18 @@
     <p class="subtitle">Testwiese fuer axum, askama und htmx.</p>
 {% endblock %}
 {% block content %}
-    <form id="post-entry" class="box">
+    <form id="post-entry"
+          class="box"
+          hx-post="/entries"
+          hx-swap="beforeend"
+          hx-target="#entries">
         <div class="field">
-            <label class="label">Content</label>
+            <label class="label">add content</label>
             <div class="control">
-                <input required  class="input" type="text" name="content">
+                <input required class="input" type="text" name="content">
             </div>
         </div>
-        <button class="button is-primary"
-                hx-trigger="click"
-                hx-post="/entries"
-                hx-swap="beforeend"
-                hx-target="#entries">Add</button>
+        <button class="button is-primary">submit</button>
     </form>
     <div id="entries"
          hx-trigger="load"
