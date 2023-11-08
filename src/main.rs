@@ -10,8 +10,7 @@ use axum::{
     Extension, Form, Router,
 };
 use serde::{Deserialize, Serialize};
-use serde_json::json;
-use std::{convert::Infallible, net::SocketAddr};
+use std::{convert::Infallible, fmt, net::SocketAddr};
 use tokio::{
     sync::broadcast::{channel, Sender},
     time::{sleep, Duration},
@@ -19,16 +18,26 @@ use tokio::{
 use tokio_stream::{wrappers::BroadcastStream, Stream, StreamExt as _};
 use uuid::Uuid;
 
-pub type NotificationSender = Sender<Notification>;
+pub type NotificationSender = Sender<NotificationTemplate>;
 
-#[derive(Clone, Debug, Serialize)]
+#[derive(Clone, Serialize)]
 pub enum Severity {
     Success,
     Error,
 }
 
-#[derive(Clone, Debug, Serialize)]
-pub struct Notification {
+impl fmt::Display for Severity {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            Severity::Success => write!(f, "success"),
+            Severity::Error => write!(f, "error"),
+        }
+    }
+}
+
+#[derive(Clone, Template)]
+#[template(path = "notification.html")]
+pub struct NotificationTemplate {
     pub id: String,
     pub severity: Severity,
     pub message: String,
@@ -36,7 +45,7 @@ pub struct Notification {
 
 #[tokio::main]
 async fn main() {
-    let (notification_sender, _) = channel::<Notification>(10);
+    let (notification_sender, _) = channel::<NotificationTemplate>(10);
 
     let router = Router::new()
         .route("/", get(home))
@@ -104,7 +113,7 @@ async fn post_entry(
     Extension(sender): Extension<NotificationSender>,
     Form(entry): Form<EntryForm>,
 ) -> impl IntoResponse {
-    if let Err(_) = sender.send(Notification {
+    if let Err(_) = sender.send(NotificationTemplate {
         id: Uuid::new_v4().to_string(),
         severity: Severity::Success,
         message: format!("created entry with content: {}", entry.content),
@@ -126,7 +135,7 @@ async fn delete_entry(
 ) -> impl IntoResponse {
     let uuid = Uuid::parse_str(&id).unwrap();
 
-    if let Err(_) = sender.send(Notification {
+    if let Err(_) = sender.send(NotificationTemplate {
         id: Uuid::new_v4().to_string(),
         severity: Severity::Error,
         message: format!("deleted entry with id: {}", uuid),
@@ -147,7 +156,7 @@ async fn get_notification_sse(
         stream
             .map(|ntfctn| {
                 if let Ok(notification) = ntfctn {
-                    let message = format!("<div>{}</div>", json!(notification));
+                    let message = notification.render().unwrap();
                     Event::default().data(message)
                 } else {
                     let message = "<div>error handling notification</div>".to_string();

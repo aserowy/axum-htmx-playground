@@ -1,0 +1,5 @@
+<div id="notification-{{ id }}"
+     {% if severity.to_string() == "success" %} class="notification is-primary is-light" {% else %} class="notification is-danger is-light" {% endif %}>
+    <button class="delete"></button>
+    {{ message }}
+</div>

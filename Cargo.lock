@@ -533,7 +533,6 @@ dependencies = [
  "askama_axum",
  "axum",
  "serde",
- "serde_json",
  "tokio",
  "tokio-stream",
  "uuid",
