@@ -5,22 +5,27 @@
     <p class="subtitle">Testwiese fuer axum, askama und htmx.</p>
 {% endblock %}
 {% block content %}
-    <form id="post-entry" class="pb-6">
+    <form id="post-entry" class="box">
         <div class="field">
             <label class="label">Content</label>
             <div class="control">
                 <input required  class="input" type="text" name="content">
             </div>
         </div>
-        <div class="control">
-            <button class="button is-primary"
-                    hx-trigger="click"
-                    hx-post="/entries"
-                    hx-swap="beforeend"
-                    hx-target="#entries">Add</button>
-        </div>
+        <button class="button is-primary"
+                hx-trigger="click"
+                hx-post="/entries"
+                hx-swap="beforeend"
+                hx-target="#entries">Add</button>
     </form>
-    <div id="entries" hx-trigger="load" hx-get="/entries" hx-swap="outerHTML">
-        <p>Loading...</p>
+    <div id="entries"
+         hx-trigger="load"
+         hx-get="/entries"
+         hx-swap="outerHTML"
+         hx-indicator="#entries-progress"></div>
+    <div id="entries-progress" class="columns is-mobile">
+        <div class="htmx-indicator column is-half is-offset-one-quarter">
+            <progress class=" progress is-small is-primary" max="100"></progress>
+        </div>
     </div>
 {% endblock %}

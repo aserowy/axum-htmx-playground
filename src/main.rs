@@ -8,6 +8,7 @@ use axum::{
 };
 use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;
+use tokio::time::{sleep, Duration};
 use uuid::Uuid;
 
 #[tokio::main]
@@ -45,6 +46,8 @@ struct Entry {
 }
 
 async fn get_entries() -> impl IntoResponse {
+    sleep(Duration::from_secs(3)).await;
+
     EntriesTemplate {
         entries: vec![
             Entry {
