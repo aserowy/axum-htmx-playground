@@ -17,6 +17,12 @@
             </div>
         </section>
         <section class="section">
+            <div id="notification"
+                 class="container"
+                 hx-sse="connect:/notifications swap:message"
+                 hx-swap="beforeend"></div>
+        </section>
+        <section class="section">
             <div id="content" class="container">
                 {% block content %}{% endblock %}
             </div>
@@ -27,4 +33,15 @@
             </div>
         </footer>
     </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+                const $notification = $delete.parentNode;
+
+                $delete.addEventListener('click', () => {
+                    $notification.parentNode.removeChild($notification);
+                });
+            });
+        });
+    </script>
 </html>
