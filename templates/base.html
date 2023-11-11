@@ -6,6 +6,7 @@
         <link rel="stylesheet"
               href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
         <script src="https://unpkg.com/htmx.org@1.9.8" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/htmx.org/dist/ext/remove-me.js"></script>
         <title>
             {% block title %}Testing - {{ title }}{% endblock %}
         </title>
@@ -19,6 +20,7 @@
         <section class="section">
             <div id="notification"
                  class="container"
+                 hx-ext="remove-me"
                  hx-sse="connect:/notifications swap:message"
                  hx-swap="beforeend"></div>
         </section>
