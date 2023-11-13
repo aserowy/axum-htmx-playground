@@ -1,10 +1,12 @@
-<div id="entry-{{ entry.id }}" class="message">
-    <div class="message-header">
-        <button class="delete"
-                hx-trigger="click"
-                hx-delete="/entries/{{ entry.id }}"
-                hx-swap="delete"
-                hx-target="#entry-{{ entry.id }}"></button>
-    </div>
-    <div class="message-body">{{ entry.content }}</div>
+<div id="entry-{{ entry.id }}" class="fade-in fade-out-on-delete">
+  <div class="message-header">
+    <button
+      class="delete"
+      hx-trigger="click"
+      hx-delete="/entries/{{ entry.id }}"
+      hx-swap="delete swap:1s"
+      hx-target="#entry-{{ entry.id }}"
+    ></button>
+  </div>
+  <div class="message-body">{{ entry.content }}</div>
 </div>

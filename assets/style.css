@@ -1,8 +1,13 @@
-.message.htmx-added {
+.opacity-zero, .fade-in.htmx-added {
   opacity: 0;
+  transition: opacity 1s ease-out;
 }
-.message {
+.fade-in {
   opacity: 1;
+  transition: opacity 1s ease-out;
+}
+.fade-out-on-delete.htmx-swapping {
+  opacity: 0;
   transition: opacity 1s ease-out;
 }
 .notifications {
