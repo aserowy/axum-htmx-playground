@@ -1,7 +1,7 @@
-<div id="entry-{{ entry.id }}" class="fade-in fade-out-on-swap">
+<div id="entry-{{ entry.id }}" class="message fade-in fade-out-on-swap">
     <div class="message-header">
         <button class="delete"
-                hx-trigger="click"
+                hx-trigger="click once"
                 hx-delete="/entries/{{ entry.id }}"
                 hx-swap="delete swap:1s"
                 hx-target="#entry-{{ entry.id }}"></button>
