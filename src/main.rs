@@ -10,12 +10,13 @@ use axum::{
     Extension, Form, Router,
 };
 use serde::{Deserialize, Serialize};
-use std::{convert::Infallible, fmt, net::SocketAddr};
+use std::{convert::Infallible, fmt, net::SocketAddr, path::PathBuf};
 use tokio::{
     sync::broadcast::{channel, Sender},
     time::{sleep, Duration},
 };
 use tokio_stream::{wrappers::BroadcastStream, Stream, StreamExt as _};
+use tower_http::services::ServeDir;
 use uuid::Uuid;
 
 pub type NotificationSender = Sender<NotificationTemplate>;
@@ -52,6 +53,7 @@ async fn main() {
         .route("/entries", get(get_entries).post(post_entry))
         .route("/entries/:id", delete(delete_entry))
         .route("/notifications", get(get_notification_sse))
+        .nest_service("/assets", ServeDir::new(PathBuf::from("assets")))
         .layer(Extension(notification_sender));
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 8080));

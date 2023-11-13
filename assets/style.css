@@ -1,0 +1,10 @@
+.message.htmx-added {
+  opacity: 0;
+}
+.message {
+  opacity: 1;
+  transition: opacity 1s ease-out;
+}
+.notifications {
+  pointer-events: none;
+}

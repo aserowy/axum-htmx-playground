@@ -12,4 +12,5 @@ axum = "0.6.20"
 serde = { version = "1.0.192", features = ["derive"] }
 tokio = { version = "1.33.0", features = ["full"] }
 tokio-stream = { version = "0.1.14", features = ["sync"] }
+tower-http = { version = "0.4.4", features = ["fs"] }
 uuid = { version = "1.5.0", features = ["v4"] }

@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet"
               href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+        <link rel="stylesheet" href="/assets/style.css">
         <script src="https://unpkg.com/htmx.org@1.9.8" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/htmx.org/dist/ext/remove-me.js"></script>
         <title>
@@ -18,13 +19,6 @@
             </div>
         </section>
         <section class="section">
-            <div id="notification"
-                 class="container"
-                 hx-ext="remove-me"
-                 hx-sse="connect:/notifications swap:message"
-                 hx-swap="beforeend"></div>
-        </section>
-        <section class="section">
             <div id="content" class="container">
                 {% block content %}{% endblock %}
             </div>
@@ -34,6 +28,13 @@
                 <p>playground made with love</p>
             </div>
         </footer>
+        <section class="notifications section is-overlay">
+            <div id="notification"
+                 class="container columns is-flex-direction-column"
+                 hx-ext="remove-me"
+                 hx-sse="connect:/notifications swap:message"
+                 hx-swap="beforeend"></div>
+        </section>
     </body>
     <script>
         document.addEventListener('htmx:afterSwap', () => {
