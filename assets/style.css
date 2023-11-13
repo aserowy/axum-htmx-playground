@@ -6,7 +6,7 @@
   opacity: 1;
   transition: opacity 1s ease-out;
 }
-.fade-out-on-delete.htmx-swapping {
+.fade-out-on-swap.htmx-swapping {
   opacity: 0;
   transition: opacity 1s ease-out;
 }
