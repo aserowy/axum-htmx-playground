@@ -1,15 +1,28 @@
-.opacity-zero, .fade-in.htmx-added {
-  opacity: 0;
-  transition: opacity 1s ease-out;
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 .fade-in {
-  opacity: 1;
-  transition: opacity 1s ease-out;
+  animation: fade-in 1s ease-out;
 }
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.fade-out,
 .fade-out-on-swap.htmx-swapping {
-  opacity: 0;
-  transition: opacity 1s ease-out;
+  animation: fade-out 1s ease-out;
 }
+
 .notifications {
   pointer-events: none;
 }
