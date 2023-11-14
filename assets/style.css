@@ -11,9 +11,6 @@
 }
 
 @keyframes fade-out {
-  from {
-    opacity: 1;
-  }
   to {
     opacity: 0;
   }
@@ -21,6 +18,16 @@
 .fade-out,
 .fade-out-on-swap.htmx-swapping {
   animation: fade-out 1s ease-out;
+}
+
+@keyframes slide-out {
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+.slide-out {
+  animation: slide-out 1s ease-out;
 }
 
 .notifications {
